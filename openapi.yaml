@@ -1,0 +1,38 @@
+paths:
+  /auth/admin/Register:
+    post:
+      summary: Admin register
+      requestBody:
+        content: application/json:
+          schema:
+            type: object
+            properties:
+              email: {type: string}
+              password: {type: string}
+      responses:
+        '200': {description: ok, content: application/json}
+  /auth/admin/login:
+    post:
+      summary: Admin login
+      requestBody:
+        content: application/json:
+          schema:
+            type: object
+            properties:
+              email: {type: string}
+              password: {type: string}
+      responses:
+        '200': {description: ok, content: application/json}
+
+  /users:
+    post:
+      summary: Register user
+      requestBody: { ... }
+    get:
+      summary: List users (cached)
+  /invites:
+    post:
+      summary: Create and send invite to user(s)
+  /invites/{id}/rsvp:
+    post:
+      summary: RSVP to invite (user click)
