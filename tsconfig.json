@@ -4,13 +4,18 @@
     "module": "commonjs",
     "strict": true,
     "resolveJsonModule": true,
+    "paths": {
+      "*": ["*"]
+    },
     "allowJs": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
     "baseUrl": "./src",
+    "rootDir": "./src",
     "outDir": "dist",
     "types": [
       "node",

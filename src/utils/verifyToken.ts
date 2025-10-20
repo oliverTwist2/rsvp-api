@@ -1,6 +1,6 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
-import { AppError } from 'errors/appError';
+import { AppError } from '../errors/appError';
 
 export const verifyToken = (token: string): JwtPayload => {
   try {

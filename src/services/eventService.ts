@@ -1,5 +1,5 @@
-import Event, {IEvent} from "models/eventModel";
-import { AppError } from "errors/appError";
+import Event, {IEvent} from "../models/eventModel";
+import { AppError } from "../errors/appError";
 
 
 const createEvent = async (
@@ -25,16 +25,9 @@ const createEvent = async (
 };
 
 
-const getEventById = async (eventId: string): Promise<IEvent | null> => {
-  return await Event.findById(eventId);
-};
-
-
 
 const updateEvent = async (
-  eventId: string,
-  updates: Partial<IEvent>
-): Promise<IEvent | null> => {
+eventId: string, updates: Partial<IEvent>, adminId: string | undefined): Promise<IEvent | null> => {
   const event = await Event.findById(eventId);
   if (!event) throw new AppError('Event not found', 404);
 
@@ -47,7 +40,7 @@ const updateEvent = async (
 };
 
 
-const deleteEvent = async (eventId: string): Promise<void> => {
+const deleteEvent = async (eventId: string, adminId: string | undefined): Promise<void> => {
   const event = await Event.findById(eventId);
   if (!event) throw new AppError('Event not found', 404);
 
@@ -66,7 +59,6 @@ const getActiveEvents = async (): Promise<IEvent[]> => {
 
 export const EventService = {
   createEvent,
-  getEventById,
   updateEvent,
   deleteEvent,
   getActiveEvents,

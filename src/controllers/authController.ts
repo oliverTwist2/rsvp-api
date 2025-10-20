@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { AdminService } from '../services/authService';
 import { generateToken } from '../utils/generateToken';
-import { AppError } from 'errors/appError';
+import { AppError } from '../errors/appError';
 
 export const register = async (
   req: Request,

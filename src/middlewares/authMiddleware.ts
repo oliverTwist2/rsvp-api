@@ -2,8 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 import { AppError } from '../errors/appError';
 import { verifyToken } from '../utils/verifyToken';
 
+export interface AuthenticatedAdmin {
+  id: string;
+  email?: string;
+  _id?: string;
+}
+
 export interface AuthenticatedRequest extends Request {
-  admin?: { id: string; email: string };
+  admin?: AuthenticatedAdmin;
 }
 
 export const protectRoute = (

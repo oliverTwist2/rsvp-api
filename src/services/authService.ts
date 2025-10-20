@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
-import Admin, { IAdmin } from "models/adminModel";
-import { AppError } from "errors/appError";
+import Admin, { IAdmin } from "../models/adminModel";
+import { AppError } from "../errors/appError";
 
 const registerAdmin = async (
   email: string,
