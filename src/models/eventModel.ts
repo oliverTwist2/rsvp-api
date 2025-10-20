@@ -16,6 +16,7 @@ export interface IEvent extends Document {
   invitations: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
+  isDeleted?: boolean;
 
   isEventFull(): boolean;
   updateStatus(currentDate: Date): void;
@@ -83,6 +84,10 @@ const eventSchema = new Schema<IEvent>(
         ref: 'Invitation',
       },
     ],
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
