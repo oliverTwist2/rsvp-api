@@ -3,12 +3,12 @@ import bcrypt from 'bcryptjs';
 
 
 export interface IAdmin extends Document {
+  comparePassword(enteredPassword: string): Promise<boolean>;
   _id: Types.ObjectId;
   email: string;
   username: string;
   password: string; 
-  role: 'admin' | 'superadmin';                      
-  comparePassword(enteredPassword: string): Promise<boolean>; 
+  role: 'admin' | 'superadmin';                       
 }
 
 const adminSchema = new Schema<IAdmin>( {
@@ -45,13 +45,19 @@ const adminSchema = new Schema<IAdmin>( {
 adminSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  //const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
 adminSchema.methods.comparePassword = async function (enteredPassword: string) : Promise<boolean> {
-  return await bcrypt.compare(enteredPassword, this.password);
+  console.log('Entered password:', enteredPassword);
+  console.log('Stored hash:', this.password);
+  const result = await bcrypt.compare(enteredPassword, this.password);
+  console.log("current hashed value:", await bcrypt.hash(enteredPassword, 10));
+  console.log('Hashed password before save:', this.password);
+  console.log('Comparison result:', result);
+  return result;
 };
 
 const Admin = model<IAdmin>('Admin', adminSchema);
