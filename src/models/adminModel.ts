@@ -45,18 +45,13 @@ const adminSchema = new Schema<IAdmin>( {
 adminSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
-  //const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, 10);
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
 adminSchema.methods.comparePassword = async function (enteredPassword: string) : Promise<boolean> {
-  console.log('Entered password:', enteredPassword);
-  console.log('Stored hash:', this.password);
   const result = await bcrypt.compare(enteredPassword, this.password);
-  console.log("current hashed value:", await bcrypt.hash(enteredPassword, 10));
-  console.log('Hashed password before save:', this.password);
-  console.log('Comparison result:', result);
   return result;
 };
 

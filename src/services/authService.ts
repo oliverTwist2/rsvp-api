@@ -10,9 +10,6 @@ const registerAdmin = async (
   const existingAdmin = await Admin.findOne({ email });
   if (existingAdmin) throw new AppError('Email already in use', 400);
 
-  //const hashedPassword = await bcrypt.hash(password, 12);
-  //console.log('Hashed password during registration:', hashedPassword);
-
   const admin = new Admin({
     email,
     username,
@@ -29,9 +26,6 @@ const loginAdmin = async (
 ): Promise<IAdmin> => {
   const admin = await Admin.findOne({ email }).select('+password');
   if (!admin) throw new AppError('Invalid email', 401);
-
-  console.log('Entered password:', password);
-  // console.log('Stored hash:', admin.password);
 
   const isMatch = await admin.comparePassword(password);
   console.log('Stored hash:', admin.password);
