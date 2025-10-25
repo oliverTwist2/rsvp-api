@@ -10,13 +10,13 @@ const registerAdmin = async (
   const existingAdmin = await Admin.findOne({ email });
   if (existingAdmin) throw new AppError('Email already in use', 400);
 
-  const hashedPassword = await bcrypt.hash(password, 12);
+  //const hashedPassword = await bcrypt.hash(password, 12);
   //console.log('Hashed password during registration:', hashedPassword);
 
   const admin = new Admin({
     email,
     username,
-    password: hashedPassword,
+    password,
   });
 
   return await admin.save();
